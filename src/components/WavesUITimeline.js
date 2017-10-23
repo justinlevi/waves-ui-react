@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 // import PropTypes from 'prop-types';
 
 import * as wavesUI from 'waves-ui';
+import CollisionSegmentBehavior from './CollisionSegmentBehavior';
 
 import uuid from "uuid";
 
@@ -42,8 +43,8 @@ class WavesUITimeline extends Component {
     var duration = 20;
 
     var data = [
-      { start: 2, duration: 4, color: 'steelblue' },
-      { start: 10, duration: 5, color: 'orange' },
+      { start: 0, duration: 3, color: 'steelblue' },
+      { start: 5, duration: 3, color: 'orange' },
       { start: 14, duration: 3, color: 'green' },
     ];
 
@@ -70,7 +71,8 @@ class WavesUITimeline extends Component {
       }
     });
 
-    segmentLayer.setBehavior(new wavesUI.behaviors.SegmentBehavior());
+    var cb = new CollisionSegmentBehavior(data);
+    segmentLayer.setBehavior(cb);
 
     timeline.state = new wavesUI.states.SimpleEditionState(timeline);
 
@@ -79,6 +81,8 @@ class WavesUITimeline extends Component {
 
     timeline.tracks.render();
     timeline.tracks.update();
+
+    //cb.segmentsData = segmentLayer.items;
   }
 
   render() {
